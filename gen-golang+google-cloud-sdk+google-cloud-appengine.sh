@@ -41,14 +41,14 @@ RUN google-cloud-sdk/bin/gcloud config set --installation component_manager/disa
 RUN sed -i -- 's/\"disable_updater\": false/\"disable_updater\": true/g' /google-cloud-sdk/lib/googlecloudsdk/core/config.json || echo nope, too soon for this
 
 RUN mkdir /.ssh
-ENV PATH /google-cloud-sdk/bin:$PATH
+ENV PATH /google-cloud-sdk/bin:\$PATH
 VOLUME ["/.config"]
 CMD bash
 
 # install go appengine sdk
 RUN wget https://storage.googleapis.com/appengine-sdks/featured/go_appengine_sdk_linux_amd64-${APPENGINE_VERSION}.zip && \
     unzip go_appengine_sdk_linux_amd64-${APPENGINE_VERSION}.zip
-ENV PATH $PATH:/go_appengine
+ENV PATH \$PATH:/go_appengine
 
 EOF
 }

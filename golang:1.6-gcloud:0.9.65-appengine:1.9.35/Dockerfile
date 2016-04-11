@@ -13,8 +13,6 @@ RUN wget https://dl.google.com/dl/cloudsdk/channels/rapid/google-cloud-sdk.zip &
 ENV CLOUDSDK_COMPONENT_MANAGER_FIXED_SDK_VERSION 0.9.65
 RUN google-cloud-sdk/install.sh --usage-reporting=true --path-update=true --bash-completion=true --rc-path=/.bashrc --additional-components app-engine-java app-engine-python app kubectl alpha beta pkg-go pkg-python pkg-java preview
 
-# UPDATE ?? ? ? ? ? ?
-
 # Disable updater check for the whole installation.
 # Users won't be bugged with notifications to update to the latest version of gcloud.
 RUN google-cloud-sdk/bin/gcloud config set --installation component_manager/disable_update_check true || google-cloud-sdk/bin/gcloud config set component_manager/disable_update_check true
@@ -25,11 +23,11 @@ RUN google-cloud-sdk/bin/gcloud config set --installation component_manager/disa
 RUN sed -i -- 's/\"disable_updater\": false/\"disable_updater\": true/g' /google-cloud-sdk/lib/googlecloudsdk/core/config.json || echo nope, too soon for this
 
 RUN mkdir /.ssh
-ENV PATH /google-cloud-sdk/bin:/Users/azr/google-cloud-sdk/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/azr/code/go/bin/
+ENV PATH /google-cloud-sdk/bin:$PATH
 VOLUME ["/.config"]
 CMD bash
 
 # install go appengine sdk
 RUN wget https://storage.googleapis.com/appengine-sdks/featured/go_appengine_sdk_linux_amd64-1.9.35.zip &&     unzip go_appengine_sdk_linux_amd64-1.9.35.zip
-ENV PATH /Users/azr/google-cloud-sdk/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/azr/code/go/bin/:/go_appengine
+ENV PATH $PATH:/go_appengine
 
