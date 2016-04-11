@@ -3,7 +3,7 @@
 set -e # leave at first error
 
 function usage {
-    echo "Usage: GO_VERSION=1.6 ROCKSDB_TAG=v4.4 ./gen-golang-rocksdb.sh"
+    echo "Usage: GO_VERSION=1.6 ROCKSDB_TAG=v4.4 ./gen-golang+rocksdb.sh"
 }
 
 if [ -z $GO_VERSION ] || [ -z $ROCKSDB_TAG ]; then
